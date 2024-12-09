@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard di {{ user.nome }}</h1>
+    {% if user.tipo == 'professore' %}
+        <h2>Crea una nuova classroom</h2>
+        <form action="/classroom/create/{{ user.id }}" method="post">
+            <input type="text" name="nome" placeholder="Nome della classroom" required>
+            <textarea name="descrizione" placeholder="Descrizione"></textarea>
+            <button type="submit">Crea</button>
+        </form>
+    {% endif %}
+
+    <h2>Classroom disponibili</h2>
+    <ul>
+        {% for classroom in classrooms %}
+            <li>
+                <a href="/classroom/{{ classroom.id }}">{{ classroom.nome }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
