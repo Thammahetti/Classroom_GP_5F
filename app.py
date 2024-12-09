@@ -67,8 +67,10 @@ def create_classroom(professor_id):
 @app.route('/classroom/<int:classroom_id>')
 def classroom_details(classroom_id):
     classroom = Classroom.query.get_or_404(classroom_id)
-    posts = Post.query.filter_by(id_classroom=classroom.id).all()
-    return render_template('classroom_details.html', classroom=classroom, posts=posts)
+    posts = Post.query.filter_by(classroom_id=classroom_id).all()
+
+    user_type = request.args.get('user_type', 'studente') 
+    return render_template('classroom_details.html', classroom=classroom, posts=posts, user_type=user_type)
 
 @app.route('/classroom/<int:classroom_id>/post', methods=['POST'])
 def add_post(classroom_id):
